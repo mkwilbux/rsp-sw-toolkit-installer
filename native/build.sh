@@ -141,6 +141,7 @@ if [[ $GIT_LFS_VERSION == *"git-lfs/"* ]]; then
     echo "Package git-lfs exists, continuing..."
 else
     echo "Using wget to download sensor software repository..."
+    rm $PROJECTS_DIR/rsp-sw-toolkit-installer/sensor-sw-repo/*.tgz
     wget https://github.com/intel/rsp-sw-toolkit-installer/raw/master/sensor-sw-repo/$TAR_BALL
 fi
 if [ -f "$TAR_BALL" ]; then
