@@ -48,20 +48,6 @@ else
         echo "Connectivity OK"
     fi
 fi
-
-echo
-echo "Installing the following dependencies..."
-echo "    1. tar"
-echo "    2. openjdk"
-echo "    3. git"
-echo "    4. gradle"
-echo "    5. mosquitto"
-echo "    6. mosquitto-clients"
-echo "    7. avahi-daemon"
-echo "    8. ntp"
-echo "    9. ssh"
-echo
-
 echo
 cd ~
 HOME_DIR=$(pwd)
