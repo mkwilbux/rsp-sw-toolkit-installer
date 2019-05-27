@@ -64,14 +64,12 @@ echo
 sudo apt update
 sudo apt -y install tar default-jdk git gradle 
 sudo apt -y install mosquitto mosquitto-clients avahi-daemon
-sudo apt -y install ntp ntp-doc ssh
+sudo apt -y install ntp ntp-doc ssh wget
 sudo apt -y autoremove
 
 echo
-cd ~
-HOME_DIR=$(pwd)
-PROJECTS_DIR=$HOME_DIR/projects
-DEPLOY_DIR=$HOME_DIR/deploy
+PROJECTS_DIR=$HOME/projects
+DEPLOY_DIR=$HOME/deploy
 
 if [ ! -d "$PROJECTS_DIR" ]; then
     echo "Creating the projects directory..."
@@ -126,33 +124,18 @@ if [ ! -f "$RUN_DIR/cache/keystore.p12" ]; then
     exit 1
 fi
 
-if [ ! -d "$PROJECTS_DIR/rsp-sw-toolkit-installer/sensor-sw-repo" ]; then
-    echo "Downloading the sensor software repository..."
-    cd $PROJECTS_DIR
-    git clone https://github.com/intel/rsp-sw-toolkit-installer.git
+if [ -d "$RUN_DIR/sensor-sw-repo" ]; then
+    echo "Purge old sensor software repository..."
+    rm -rf $RUN_DIR/sensor-sw-repo/*
 fi
-cd $PROJECTS_DIR/rsp-sw-toolkit-installer/
-git pull
-cd $PROJECTS_DIR/rsp-sw-toolkit-installer/sensor-sw-repo
 
-TAR_BALL=$(ls hx000-rrs-repo-*.tgz)
-GIT_LFS_VERSION=$(git lfs --version)
-if [[ $GIT_LFS_VERSION == *"git-lfs/"* ]]; then
-    echo "Package git-lfs exists, continuing..."
-else
-    echo "Using wget to download sensor software repository..."
-    rm $PROJECTS_DIR/rsp-sw-toolkit-installer/sensor-sw-repo/*.tgz
-    wget https://github.com/intel/rsp-sw-toolkit-installer/raw/master/sensor-sw-repo/$TAR_BALL
-fi
-if [ -f "$TAR_BALL" ]; then
-    echo "Copying sensor software repository to deploy folder..."
-    tar -xf ./$TAR_BALL
-    REPO_DIR=${TAR_BALL::-4}
-    if [ ! -d "$RUN_DIR/sensor-sw-repo/" ]; then
-        mkdir $RUN_DIR/sensor-sw-repo/
-    fi
-    cp -R ./$REPO_DIR/* $RUN_DIR/sensor-sw-repo/
-fi
+cd $RUN_DIR/sensor-sw-repo
+echo "Downloading the sensor software repository..."
+wget https://github.com/intel/rsp-sw-toolkit-installer/raw/master/sensor-sw-repo/latest.txt && \
+wget https://github.com/intel/rsp-sw-toolkit-installer/raw/master/sensor-sw-repo/$(cat latest.txt) && \
+tar -xvzf $(cat latest.txt) --strip=1 && \
+rm $(cat latest.txt) && \
+rm latest.txt
 
 echo
 cd $PROJECTS_DIR/rsp-sw-toolkit-installer/native

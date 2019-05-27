@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ ! -f /opt/rsp-sw-toolkit-gw/cache/ca.crt ]; then
+	cd /opt/rsp-sw-toolkit-gw/cache && \
+	/opt/rsp-sw-toolkit-gw/gen_keys.sh
+fi
+
+# echo "$(host mosquitto | awk '{print $4}')      $(hostname).local" >> /etc/hosts
+echo -e "\n127.0.1.1 $(hostname).local" >> /etc/hosts
+
+/opt/rsp-sw-toolkit-gw/run.sh

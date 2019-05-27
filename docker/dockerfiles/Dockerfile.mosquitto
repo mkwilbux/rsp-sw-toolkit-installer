@@ -1,0 +1,12 @@
+FROM debian:stretch-slim
+MAINTAINER Bryan J Rodriguez <bryan.j.rodriguez@intel.com>, John Belstner <john.belstner@intel.com>
+
+RUN apt update && apt install -yq --no-install-recommends \
+  mosquitto \
+  dumb-init \
+  && apt clean
+	
+WORKDIR /
+
+ENTRYPOINT ["dumb-init", "/usr/sbin/mosquitto"]
+CMD []
