@@ -14,7 +14,7 @@ This method will download and install the Intel® RSP SW Toolkit - Gateway sourc
 
 ### Docker Environment
 
-This method will download and install the Intel® RSP SW Toolkit - Gateway source code along with all of its runtime dependencies within a Docker environment.  The script will build and deploy three separate Docker Containers.  Clone this repository if you are familiar with how to do that.  Otherwise, use the web interface to download the build.sh script.  Place it in your home directory and run it.
+This method will download and install the Intel® RSP SW Toolkit - Gateway source code along with all of its runtime dependencies within a Docker environment.  The script will build and deploy three separate Docker Containers.  Clone this repository if you are familiar with how to do that.  Otherwise, use the web interface to download the build.sh script.  Place it in your home directory and run it as root (i.e. sudo ./build.sh).
 
 
 ### Edge-X Environment (coming soon)

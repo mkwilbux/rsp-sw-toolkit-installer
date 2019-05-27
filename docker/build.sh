@@ -56,10 +56,10 @@ echo "    2. docker-compose"
 echo "    3. bash"
 echo "    4. curl"
 echo
-sudo apt update
-sudo apt -y install docker bash
-sudo apt -y autoremove
-sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && sudo chmod a+x /usr/local/bin/docker-compose
+apt update
+apt -y install docker bash
+apt -y autoremove
+curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && sudo chmod a+x /usr/local/bin/docker-compose
 
 echo
 PROJECTS_DIR=$HOME/projects
@@ -87,6 +87,7 @@ git pull
 # we want to have some checks done for undefined variables
 set -u
 
+cd $PROJECTS_DIR/rsp-sw-toolkit-installer/docker/
 source "scripts/textutils.sh"
 
 if [ "${HTTP_PROXY+x}" != "" ]; then
