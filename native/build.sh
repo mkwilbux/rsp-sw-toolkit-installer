@@ -110,13 +110,12 @@ else
     exit 1
 fi
 RUN_DIR=$DEPLOY_DIR/rsp-sw-toolkit-gw
-cd $RUN_DIR
 
 if [ ! -d "$RUN_DIR/cache" ]; then
     echo "Creating cache directory..."
-    mkdir ./cache
+    mkdir $RUN_DIR/cache
     echo "Generating certificates..."
-    cd ./cache && ../gen_keys.sh
+    cd $RUN_DIR/cache && ../gen_keys.sh
 fi
 echo
 if [ ! -f "$RUN_DIR/cache/keystore.p12" ]; then
@@ -124,10 +123,12 @@ if [ ! -f "$RUN_DIR/cache/keystore.p12" ]; then
     exit 1
 fi
 
-if [ -d "$RUN_DIR/sensor-sw-repo" ]; then
-    echo "Purge old sensor software repository..."
-    rm -rf $RUN_DIR/sensor-sw-repo/*
+if [ ! -d "$RUN_DIR/sensor-sw-repo" ]; then
+    echo "Creating sensor-sw-repo directory..."
+    mkdir $RUN_DIR/sensor-sw-repo
 fi
+echo "Purge old sensor software repository..."
+rm -rf $RUN_DIR/sensor-sw-repo/*
 
 cd $RUN_DIR/sensor-sw-repo
 echo "Downloading the sensor software repository..."
