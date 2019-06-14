@@ -57,7 +57,7 @@ echo "    3. bash"
 echo "    4. curl"
 echo
 apt update
-apt -y install docker bash
+apt -y install docker.io bash curl
 apt -y autoremove
 curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && sudo chmod a+x /usr/local/bin/docker-compose
 
