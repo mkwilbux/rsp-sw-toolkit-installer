@@ -129,7 +129,7 @@ if [ ! -d "$RUN_DIR/sensor-sw-repo" ]; then
 fi
 echo "Purge old sensor software repository..."
 rm -rf $RUN_DIR/sensor-sw-repo/*
-
+"server 127.127.1.0 prefer"
 cd $RUN_DIR/sensor-sw-repo
 echo "Downloading the sensor software repository..."
 wget https://github.com/intel/rsp-sw-toolkit-installer/raw/master/sensor-sw-repo/latest.txt && \
@@ -138,13 +138,33 @@ tar -xvzf $(cat latest.txt) --strip=1 && \
 rm $(cat latest.txt) && \
 rm latest.txt
 
+echo "Configuring NTP Server to serve time with no Internet ..."
+NTP_FILE="/etc/ntp.conf"
+TMP_FILE="/tmp/ntp.conf"
+NTP_STRING1="server 127.127.1.0 prefer"
+NTP_STRING2="fudge 127.127.22.1"
+END_OF_FILE=$(tail -n 3 $NTP_FILE)
+if [[ $END_OF_FILE == *$NTP_STRING2* ]]; then
+  echo "Already configured!"
+else
+  cp $NTP_FILE $TMP_FILE
+  echo >> $TMP_FILE
+  echo "# If you want to serve time locally with no Internet," >> $TMP_FILE
+  echo "# uncomment the next two lines" >> $TMP_FILE
+  echo $NTP_STRING1 >> $TMP_FILE
+  echo $NTP_STRING2 >> $TMP_FILE
+  echo >> $TMP_FILE
+  sudo cp $TMP_FILE $NTP_FILE
+  sudo /etc/init.d/ntp restart
+fi
+
 echo
 cd $PROJECTS_DIR/rsp-sw-toolkit-installer/native
 if [ ! -f "$PROJECTS_DIR/rsp-sw-toolkit-installer/native/open-web-admin.sh" ]; then
     echo "WARNING: The script open-web-admin.sh was not found."
 else
-    ./open-web-admin.sh &
+    $PROJECTS_DIR/rsp-sw-toolkit-installer/native/open-web-admin.sh &
 fi
 echo "Running the RSP SW Toolkit - Gateway..."
 cd $RUN_DIR
-./run.sh
+$RUN_DIR/rsp-sw-toolkit-installer/native/run.sh
