@@ -167,4 +167,4 @@ else
 fi
 echo "Running the RSP SW Toolkit - Gateway..."
 cd $RUN_DIR
-$RUN_DIR/rsp-sw-toolkit-installer/native/run.sh
+$RUN_DIR/run.sh
