@@ -144,9 +144,10 @@ TMP_FILE="/tmp/ntp.conf"
 NTP_STRING1="server 127.127.1.0 prefer"
 NTP_STRING2="fudge 127.127.22.1"
 END_OF_FILE=$(tail -n 3 $NTP_FILE)
-if [[ $END_OF_FILE == *$NTP_STRING2* ]]; then
+if [[ $END_OF_FILE == *"$NTP_STRING1"* ]]; then
   echo "Already configured!"
 else
+  echo "Updating $NTP_FILE"
   cp $NTP_FILE $TMP_FILE
   echo >> $TMP_FILE
   echo "# If you want to serve time locally with no Internet," >> $TMP_FILE
