@@ -3,6 +3,7 @@ MAINTAINER Bryan J Rodriguez <bryan.j.rodriguez@intel.com>, John Belstner <john.
   
 RUN apt update && apt install -yq --no-install-recommends \
   avahi-daemon \
+  avahi-utils \
   dumb-init \
   && apt clean
 	
