@@ -26,6 +26,12 @@ services:
       # placement:
         # constraints: [node.platform.os == linux]
 
+  ntp:
+    image: rsp/ntp:0.1   
+    privileged: true
+    network_mode: host
+    restart: always
+
   mosquitto:
     image: rsp/mosquitto:0.1
     # environment:
