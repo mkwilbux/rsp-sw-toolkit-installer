@@ -4,6 +4,9 @@ version: "3.2"
   # rsp_gw_net:
     # driver: overlay
     # attachable: true
+volumes:
+  rsp-cache:
+  rsp-config:
   
 services:  
   avahi:
@@ -28,8 +31,10 @@ services:
 
   ntp:
     image: rsp/ntp:0.1   
-    privileged: true
-    network_mode: host
+    ports:
+     - "123:123/udp"
+    cap_add:
+     - SYS_TIME
     restart: always
 
   mosquitto:
@@ -68,7 +73,8 @@ services:
     # userns_mode: host
     restart: always
     volumes:
-      - /opt/rsp-sw-toolkit-gw/cache/:/opt/rsp-sw-toolkit-gw/cache/
+      - rsp-cache:/opt/rsp-sw-toolkit-gw/cache/
+      - rsp-config:/opt/rsp-sw-toolkit-gw/config/
     # networks:
       # rsp_gw_net:
         # aliases:
