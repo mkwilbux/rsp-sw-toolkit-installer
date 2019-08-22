@@ -32,8 +32,6 @@ services:
   ntp:
     image: rsp/ntp:0.1   
     network_mode: host
-    ports:
-     - "123:123/udp"
     cap_add:
      - SYS_TIME
     restart: always
