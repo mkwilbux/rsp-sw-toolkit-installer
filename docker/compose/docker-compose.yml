@@ -4,6 +4,9 @@ version: "3.2"
   # rsp_gw_net:
     # driver: overlay
     # attachable: true
+volumes:
+  rsp-cache:
+  rsp-config:
   
 services:  
   avahi:
@@ -25,6 +28,13 @@ services:
       # mode: global
       # placement:
         # constraints: [node.platform.os == linux]
+
+  ntp:
+    image: rsp/ntp:0.1   
+    network_mode: host
+    cap_add:
+     - SYS_TIME
+    restart: always
 
   mosquitto:
     image: rsp/mosquitto:0.1
@@ -62,7 +72,8 @@ services:
     # userns_mode: host
     restart: always
     volumes:
-      - /opt/rsp-sw-toolkit-gw/cache/:/opt/rsp-sw-toolkit-gw/cache/
+      - rsp-cache:/opt/rsp-sw-toolkit-gw/cache/
+      - rsp-config:/opt/rsp-sw-toolkit-gw/config/
     # networks:
       # rsp_gw_net:
         # aliases:

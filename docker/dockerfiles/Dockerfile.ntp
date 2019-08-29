@@ -1,0 +1,5 @@
+FROM debian:bullseye-slim
+RUN apt-get update && apt-get install -y ntp && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN echo "server 127.127.1.0 prefer" >> /etc/ntp.conf && echo "fudge 127.127.22.1" >> /etc/ntp.conf
+EXPOSE 123/udp
+CMD ["/usr/sbin/ntpd", "-d"]
