@@ -129,7 +129,7 @@ if [ ! -d "$RUN_DIR/sensor-sw-repo" ]; then
 fi
 echo "Purge old sensor software repository..."
 rm -rf $RUN_DIR/sensor-sw-repo/*
-"server 127.127.1.0 prefer"
+
 cd $RUN_DIR/sensor-sw-repo
 echo "Downloading the sensor software repository..."
 wget https://github.com/intel/rsp-sw-toolkit-installer/raw/master/sensor-sw-repo/latest.txt && \

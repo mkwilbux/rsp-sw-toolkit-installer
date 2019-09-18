@@ -11,7 +11,7 @@ The terms of use for this software are outlined in the Intel® RSP EULA Agreemen
 
 ## Getting Started
 
-If you are using one of the build.sh scripts from either the native, docker or edge-x directories, the sensor-sw-repo will automatically be installed.  However, if you wish to install it manually or need to install an updated version, follow the steps outlined below.
+If you are using one of the build.sh scripts from either the native, docker or edge-x directories, the sensor-sw-repo will automatically be installed.  However, if you only need to install an updated version, use the update.sh script from this repository.  If you are adventurous and wish to install it manually, follow the steps outlined below.
 
 ``` 
 # Copy the tar ball into the deploy directory
