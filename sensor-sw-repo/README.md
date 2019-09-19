@@ -11,19 +11,22 @@ The terms of use for this software are outlined in the Intel® RSP EULA Agreemen
 
 ## Getting Started
 
-If you are using one of the build.sh scripts from either the native, docker or edge-x directories, the sensor-sw-repo will automatically be installed.  However, if you only need to install an updated version, use the update.sh script from this repository.  If you are adventurous and wish to install it manually, follow the steps outlined below.
+If you are using one of the build.sh scripts from either the native, docker or edge-x directories, the sensor-sw-repo will automatically be installed.  However, if you only need to install an updated version, use the update.sh script from this repository and follow the steps outlined below.
+
+
+### Clone the RSP Installer Repository 
 
 ``` 
-# Copy the tar ball into the deploy directory
-~/deploy$ ls
-hx000-rrs-repo-yy.q.mm.dd.tgz  rsp-sw-toolkit-gw
+mkdir -p ~/projects
+cd ~/projects
 
-# Extract the tar ball
-~/deploy$ tar -xf hx000-rrs-repo-yy.q.mm.dd.tgz 
-~/deploy$ ls
-hx000-rrs-repo-yy.q.mm.dd  hx000-rrs-repo-yy.q.mm.dd.tgz  rsp-sw-toolkit-gw
+sudo apt -y install git
+git clone https://github.com/intel/rsp-sw-toolkit-installer.git
+```
 
-# Copy the contents into the sensor-sw-repo directory
-~/deploy$ cp -R ./hx000-rrs-repo-yy.q.mm.dd/* ./rsp-sw-toolkit-gw/sensor-sw-repo/
-~/deploy$
+### Execute the Update Script 
+
+```
+cd ~/projects/rsp-sw-toolkit-installer/sensor-sw-repo
+./update.sh
 ```
