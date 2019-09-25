@@ -1,0 +1,11 @@
+Package: rsp
+Version: 0.0.2-1
+Section: Desktop
+Priority: optional
+Architecture: all
+Depends: git
+Suggests: remastersys-gui
+Maintainer: Rsp Team <rsp@intel.com>
+Description: Debian rsp  This script creates a livecd of the installed system. You can either make a distributable livecd or backup of your system. If you want the gui frontend install respin-gui as well. For more information, please visit http://www.remastersys.org
+Installed-size: 37
+Homepage: http://www.remastersys.org/
